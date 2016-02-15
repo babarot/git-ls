@@ -12,8 +12,8 @@ if [[ -f .gitignore ]]; then
 fi
 
 for f in \
-    *(D/) \
-    *(D.)
+    *(D/N) \
+    *(D.N)
 do
     if (( $gitignore[(I)$f] )); then
         continue
