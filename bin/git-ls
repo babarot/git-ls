@@ -4,6 +4,7 @@ autoload -Uz colors; colors
 
 local    f
 local -a gitignore
+local -a fs ds
 
 if [[ -f .gitignore ]]; then
     gitignore=(
@@ -19,7 +20,13 @@ do
         continue
     fi
     if [[ -d $f ]]; then
-        printf "$fg[blue]$f$reset_color\n"
+        fs=( "$f"/*(N-.) )
+        ds=( "$f"/*(N-/) )
+        if (( $#fs == 0 && $#ds == 1 )); then
+            printf "$f/$fg[blue]${ds[1]:t}$reset_color\n"
+        else
+            printf "$fg[blue]$f$reset_color\n"
+        fi
     else
         printf "$f\n"
     fi
