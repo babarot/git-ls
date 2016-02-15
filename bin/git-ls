@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+autoload -Uz colors; colors
+
+local    f
+local -a gitignore
+
+if [[ -f .gitignore ]]; then
+    gitignore=(
+        ${(@f)"$(<.gitignore)"}(N)
+    )
+fi
+
+for f in \
+    *(D/) \
+    *(D.)
+do
+    if (( $gitignore[(I)$f] )); then
+        continue
+    fi
+    if [[ -d $f ]]; then
+        printf "$fg[blue]$f$reset_color\n"
+    else
+        printf "$f\n"
+    fi
+done
